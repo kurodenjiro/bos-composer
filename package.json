@@ -44,6 +44,7 @@
     "react-bootstrap": "^2.10.1",
     "react-bootstrap-typeahead": "^6.3.2",
     "react-dom": "18.2.0",
+    "react-singleton-hook": "^4.0.1",
     "rudder-sdk-js": "^2.48.2",
     "rxjs": "^7.8.1",
     "styled-components": "^6.1.8",
