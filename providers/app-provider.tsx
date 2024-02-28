@@ -4,7 +4,6 @@ import {NextUIProvider} from "@nextui-org/react";
 import {useRouter} from "next/navigation";
 import { WalletSelectorContextProvider } from "@/context/WalletSelectorContext";
 import { useBosLoaderInitializer } from '@/hooks/useBosLoaderInitializer';
-import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 const VmInitializer = dynamic(() => import('../components/vm/VmInitializer'), {
   ssr: false,

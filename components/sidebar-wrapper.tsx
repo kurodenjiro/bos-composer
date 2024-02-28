@@ -28,9 +28,8 @@ import { Navbar } from './navbar';
  * import {useMediaQuery} from "usehooks-ts";
  */
 export const SidebarWrapper = ({ children }: { children?: ReactNode }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(true);
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-
 
   const isCompact = isCollapsed || isMobile;
 

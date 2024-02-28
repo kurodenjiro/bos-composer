@@ -25,23 +25,8 @@ import {
 import NotificationsCard from './notification-card';
 import { Icon } from '@iconify/react';
 import { AcmeIcon } from './social-icons';
-import { useWalletSelector } from "@/context/WalletSelectorContext";
-import type {
-  AccountView,
-  CodeResult,
-} from "near-api-js/lib/providers/provider";
-import { providers, utils } from "near-api-js";
-import { useEffect, useState } from 'react';
+
 export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
-  const { selector, modal, accounts, accountId } = useWalletSelector();
-  const [data,setData] = useState();
-  const contractId ="social.near";
-
-  const handleSignIn = () => {
-    modal.show();
-    };
-
-  //console.log("dara",data)
   return (
     <NavbarBase
       classNames={{
@@ -136,7 +121,7 @@ export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
           </Popover>
         </NavbarItem>
         {/* User Menu */}
-        {accountId?<NavbarItem className="px-2">
+        <NavbarItem className="px-2">
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
               <button className="mt-1 h-8 w-8 outline-none transition-transform">
@@ -156,7 +141,7 @@ export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">{accountId}</p>
+                <p className="font-semibold">johndoe@example.com</p>
               </DropdownItem>
               <DropdownItem key="settings">My Settings</DropdownItem>
               <DropdownItem key="team_settings">Team Settings</DropdownItem>
@@ -171,7 +156,7 @@ export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        </NavbarItem>:<Button onClick={handleSignIn} className='mx-5 px-3'>Login</Button>}
+        </NavbarItem>
       </NavbarContent>
 
       {/* Mobile Menu */}

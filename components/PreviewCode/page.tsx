@@ -1,8 +1,9 @@
 'use client'
 import Preview from '@/components/sandbox/Preview';
-import { VmComponent } from '../vm/VmComponents';
+import Button from 'react-bootstrap/Button';
+import ReactDomServer from 'react-dom/server';
 
-import styled from 'styled-components';
+
 const Tab = {
     Editor: 'Editor',
     Props: 'Props',
@@ -16,9 +17,9 @@ const Layout = {
   };
 
 
-
 const PreviewCode= () => {
-    const renderCode = 'return <button>Click</button>';
+  const code = ReactDomServer.renderToString(<Button>click</Button>)
+    const renderCode = `return ${code};`;
     const jpath = "/nextjs-template/components/";
   return(<>
     {/* <Components src="influencer.testnet/widget/Greeter" /> */}

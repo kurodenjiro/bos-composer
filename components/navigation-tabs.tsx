@@ -15,9 +15,9 @@ import {
 import { Icon } from '@iconify/react';
 import PreviewCode from './PreviewCode/page';
 
-
 export const NavigationTabs = () => {
   const [selectedTab, setSelectedTab] = React.useState('dashboard');
+
   const handleSelectionChange = React.useCallback((value: React.Key) => {
     // scroll to the selected category
     setSelectedTab(value.toString());
