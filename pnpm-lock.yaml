@@ -113,6 +113,9 @@ dependencies:
   rudder-sdk-js:
     specifier: ^2.48.2
     version: 2.48.2(encoding@0.1.13)(typescript@5.2.2)
+  rxjs:
+    specifier: ^7.8.1
+    version: 7.8.1
   styled-components:
     specifier: ^6.1.8
     version: 6.1.8(react-dom@18.2.0)(react@18.2.0)
