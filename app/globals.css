@@ -2,26 +2,215 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+ul a{
+  text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.alert {
+  @apply relative px-5 py-3 mb-4 rounded border border-transparent;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.alert-primary {
+  @apply text-blue-800 bg-blue-200 border-blue-300;
+}
+
+.alert-warning {
+  @apply text-white bg-yellow-600 border-yellow-600;
+}
+
+.btn {
+  @apply inline-block font-normal text-center px-3 py-2 leading-normal text-base rounded cursor-pointer;
+}
+
+.btn-primary {
+  @apply text-white bg-blue-600;
+}
+
+.btn-primary:hover {
+  @apply text-white bg-blue-700
+}
+
+.card {
+  @apply flex flex-col relative bg-white rounded border border-gray-300;
+}
+
+.card-body {
+  @apply flex-auto p-5;
+}
+
+.card-img-top {
+  @apply w-full rounded-t;
+}
+
+.card-link + .card-link {
+  @apply ml-5;
+}
+
+.card-text {
+  @apply my-0 mb-4;
+}
+
+.card-title {
+  @apply mb-3 text-xl;
+}
+
+.navbar {
+  @apply relative flex flex-wrap items-center justify-between py-1 px-4;
+}
+
+.fixed-top {
+  @apply fixed top-0 right-0 left-0 z-40
+}
+
+.navbar-brand {
+  @apply inline-block py-1 mr-4 text-xl
+}
+
+.navbar-light .navbar-brand {
+  @apply text-gray-900
+}
+
+.navbar-dark .navbar-brand {
+  @apply text-gray-100
+}
+
+.navbar-toggler {
+  @apply inline-block py-1 px-3 leading-none bg-transparent border border-transparent rounded
+}
+
+.navbar-light .navbar-toggler {
+  @apply text-gray-500 border-gray-400
+}
+
+.navbar-dark .navbar-toggler {
+  @apply text-gray-500 border-gray-700
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+.navbar-toggler-icon {
+  content: "";
+  @apply inline-block w-6 h-6 align-middle bg-center bg-no-repeat
+}
+
+.navbar-collapse {
+  @apply hidden w-full flex-grow items-center
+}
+
+.navbar-collapse.show, .navbar-collapse.in {
+  @apply block
+}
+
+.navbar-nav {
+  @apply flex flex-col pl-0 mb-0 list-none;
+}
+
+.nav-link {
+  @apply block py-2 px-4
+}
+
+.collapse.show .nav-link, .collapse.in .nav-link {
+  @apply px-0
+}
+
+.navbar-light .navbar-nav .nav-link  {
+  @apply text-gray-600
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  @apply text-gray-800
+}
+
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active {
+  @apply text-gray-900
+}
+
+.navbar-light .navbar-nav .nav-link.disabled {
+  @apply text-gray-500 pointer-events-none
+}
+
+.navbar-dark .navbar-nav .nav-link  {
+  @apply text-gray-600
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  @apply text-gray-500
+}
+
+.navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.active {
+  @apply text-gray-200
+}
+
+.navbar-dark .navbar-nav .nav-link.disabled {
+  @apply text-gray-700 pointer-events-none
+}
+
+form {
+  @apply block;
+}
+
+label {
+  @apply inline-block mb-2;
+}
+
+.form-check {
+  @apply relative block pl-5;
+}
+
+.form-group {
+  @apply mb-4;
+}
+
+.form-check-input {
+  @apply absolute mt-1 -ml-5;
+}
+
+.form-check-label {
+  @apply mb-0;
+}
+
+.form-control {
+  @apply block w-full py-2 px-3 text-base font-normal leading-normal text-gray-700 bg-white border border-gray-400 rounded;
+}
+
+.form-inline {
+  @apply flex flex-wrap flex-row items-center
+}
+
+.form-inline .form-control {
+  @apply inline-block w-auto align-middle
+}
+
+.form-text {
+  @apply block mt-1;
+}
+
+th {
+  text-align: inherit;
+}
+
+.table {
+  @apply w-full mb-4 text-gray-900
+}
+
+.table thead th {
+  @apply align-bottom border-b-2 border-gray-300
+}
+
+.table td, .table th {
+  @apply p-3 border-t border-gray-300
+}
+
+.table.table-bordered {
+  @apply border border-gray-300
+}
+
+.table-bordered td, .table-bordered th {
+  @apply border border-gray-300
 }

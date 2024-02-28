@@ -1,11 +1,10 @@
 'use client';
 
 import type { ReactNode } from 'react';
-
-import React from 'react';
+import Button from "react-bootstrap/Button"
+import React,{useEffect} from 'react';
 import {
   Avatar,
-  Button,
   ScrollShadow,
   Spacer,
   Tooltip,
@@ -13,14 +12,14 @@ import {
 import { usePathname } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import { useMediaQuery } from 'usehooks-ts';
-
+import { useAuthStore } from '@/stores/auth';
 import { AcmeLogo } from './acme';
 import { sectionItemsWithTeams } from './sidebar-items';
 import { cn } from '../utils/cn';
 
 import Sidebar from './sidebar';
 import { Navbar } from './navbar';
-
+import { useInitNear, Widget } from 'near-social-vm';
 /**
  *  This example requires installing the `usehooks-ts` package:
  * `npm install usehooks-ts`
@@ -28,6 +27,28 @@ import { Navbar } from './navbar';
  * import {useMediaQuery} from "usehooks-ts";
  */
 export const SidebarWrapper = ({ children }: { children?: ReactNode }) => {
+  const accountId = useAuthStore((store) => store.accountId);
+  const requestSignInWithWallet = useAuthStore((store) => store.requestSignInWithWallet);
+  const vmNear = useAuthStore((store) => store.vmNear);
+  useEffect(() => {
+    if (vmNear?.selector) {
+      vmNear.selector
+        .then((selector: any) => {
+          const walletSelectorState = selector.store.getState();
+
+          if (walletSelectorState.selectedWalletId === 'my-near-wallet') {
+            return selector.wallet('my-near-wallet');
+          }
+        })
+        .then((MyNearWallet: any) => {
+          if (MyNearWallet) {
+            MyNearWallet.signIn({
+              contractId: vmNear.config.contractName,
+            });
+          }
+        });
+    }
+  }, [vmNear]);
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -39,7 +60,7 @@ export const SidebarWrapper = ({ children }: { children?: ReactNode }) => {
   const onToggle = React.useCallback(() => {
     setIsCollapsed((prev) => !prev);
   }, []);
-
+  //console.log("Acc",)
   return (
     <div className="flex h-screen w-full overflow-hidden">
       <div
@@ -50,47 +71,28 @@ export const SidebarWrapper = ({ children }: { children?: ReactNode }) => {
           }
         )}
       >
-        <div
-          className={cn(
-            'flex items-center gap-3 px-3',
-
-            {
-              'justify-center gap-0': isCompact,
-            }
-          )}
-        >
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground">
-            <AcmeLogo className="text-background" />
-          </div>
-          <span
-            className={cn('text-small font-bold uppercase opacity-100', {
-              'w-0 opacity-0': isCompact,
-            })}
-          >
-            Acme
-          </span>
-        </div>
-        <Spacer y={8} />
-        <div className="flex items-center gap-3 px-3">
-          <Avatar
+        <Spacer y={20} />
+        {/* <Button onClick={requestSignInWithWallet}>Login</Button> */}
+        {accountId==''?<Button onClick={requestSignInWithWallet}>Login</Button>:<div className="d-flex align-items-center gap-3 px-3">
+          {/* <Avatar
             isBordered
             className="flex-none"
             size="sm"
-            src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-          />
+          /> */}
+          <img width={40} className='rounded-circle' src={`https://i.near.social/magic/large/https://near.social/magic/img/account/${accountId}`} alt="logo" />
           <div
             className={cn('flex max-w-full flex-col', { hidden: isCompact })}
           >
-            <p className="truncate text-small font-medium text-default-600">
-              John Doe
+            <p className="truncate text-small font-medium">
+              {accountId}
             </p>
             <p className="truncate text-tiny text-default-400">
               Product Designer
             </p>
           </div>
-        </div>
+        </div>}
         <ScrollShadow className="-mr-6 h-full max-h-full py-6 pr-6">
-          <Sidebar
+          <Sidebar className='text-decoration-none' style={{textDecoration:'none'}}
             defaultSelectedKey="home"
             selectedKeys={[currentPath]}
             isCompact={isCompact}
@@ -98,82 +100,10 @@ export const SidebarWrapper = ({ children }: { children?: ReactNode }) => {
           />
         </ScrollShadow>
         <Spacer y={2} />
-        <div
-          className={cn('mt-auto flex flex-col', {
-            'items-center': isCompact,
-          })}
-        >
-          <Tooltip
-            content="Help & Feedback"
-            isDisabled={!isCompact}
-            placement="right"
-          >
-            <Button
-              fullWidth
-              className={cn(
-                'justify-start truncate text-default-500 data-[hover=true]:text-foreground',
-                {
-                  'justify-center': isCompact,
-                }
-              )}
-              isIconOnly={isCompact}
-              startContent={
-                isCompact ? null : (
-                  <Icon
-                    className="flex-none text-default-500"
-                    icon="solar:info-circle-line-duotone"
-                    width={24}
-                  />
-                )
-              }
-              variant="light"
-            >
-              {isCompact ? (
-                <Icon
-                  className="text-default-500"
-                  icon="solar:info-circle-line-duotone"
-                  width={24}
-                />
-              ) : (
-                'Help & Information'
-              )}
-            </Button>
-          </Tooltip>
-          <Tooltip content="Log Out" isDisabled={!isCompact} placement="right">
-            <Button
-              className={cn(
-                'justify-start text-default-500 data-[hover=true]:text-foreground',
-                {
-                  'justify-center': isCompact,
-                }
-              )}
-              isIconOnly={isCompact}
-              startContent={
-                isCompact ? null : (
-                  <Icon
-                    className="flex-none rotate-180 text-default-500"
-                    icon="solar:minus-circle-line-duotone"
-                    width={24}
-                  />
-                )
-              }
-              variant="light"
-            >
-              {isCompact ? (
-                <Icon
-                  className="rotate-180 text-default-500"
-                  icon="solar:minus-circle-line-duotone"
-                  width={24}
-                />
-              ) : (
-                'Log Out'
-              )}
-            </Button>
-          </Tooltip>
-        </div>
+        
       </div>
-      <div className="w-full flex-1 flex-col p-4">
-        <Navbar onToggle={onToggle} />
+      <div className="w-full flex-1 flex-col p-4 ">
+        {/* <Navbar onToggle={onToggle} /> */}
         {children}
       </div>
     </div>

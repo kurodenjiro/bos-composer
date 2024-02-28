@@ -64,18 +64,6 @@ export const items: SidebarItem[] = [
       </Chip>
     ),
   },
-  {
-    key: "expenses",
-    href: "/expenses",
-    icon: "solar:bill-list-outline",
-    title: "Expenses",
-  },
-  {
-    key: "settings",
-    href: "/settings",
-    icon: "solar:settings-outline",
-    title: "Settings",
-  },
 ];
 
 export const sectionItems: SidebarItem[] = [
@@ -126,92 +114,10 @@ export const sectionItems: SidebarItem[] = [
       },
     ],
   },
-  {
-    key: "organization",
-    title: "Organization",
-    items: [
-      {
-        key: "cap_table",
-        href: "/cap_table",
-        title: "Cap Table",
-        icon: "solar:pie-chart-2-outline",
-        items: [
-          {
-            key: "shareholders",
-            href: "/cap_table=shareholders",
-            title: "Shareholders",
-          },
-          {
-            key: "note_holders",
-            href: "/cap_table=note_holders",
-            title: "Note Holders",
-          },
-          {
-            key: "transactions_log",
-            href: "/cap_table=transactions_log",
-            title: "Transactions Log",
-          },
-        ],
-      },
-      {
-        key: "analytics",
-        href: "/analytics",
-        icon: "solar:chart-outline",
-        title: "Analytics",
-      },
-      {
-        key: "perks",
-        href: "/perks",
-        icon: "solar:gift-linear",
-        title: "Perks",
-        endContent: (
-          <Chip size="sm" variant="flat">
-            3
-          </Chip>
-        ),
-      },
-      {
-        key: "expenses",
-        href: "/expenses",
-        icon: "solar:bill-list-outline",
-        title: "Expenses",
-      },
-      {
-        key: "settings",
-        href: "/settings",
-        icon: "solar:settings-outline",
-        title: "Settings",
-      },
-    ],
-  },
 ];
 
 export const sectionItemsWithTeams: SidebarItem[] = [
   ...sectionItems,
-  {
-    key: "your-teams",
-    title: "Your Teams",
-    items: [
-      {
-        key: "nextui",
-        href: "/nextui",
-        title: "NextUI",
-        startContent: <TeamAvatar name="Next UI" />,
-      },
-      {
-        key: "tailwind-variants",
-        href: "/tailwind-variants",
-        title: "Tailwind Variants",
-        startContent: <TeamAvatar name="Tailwind Variants" />,
-      },
-      {
-        key: "nextui-pro",
-        href: "/nextui-pro",
-        title: "NextUI Pro",
-        startContent: <TeamAvatar name="NextUI Pro" />,
-      },
-    ],
-  },
 ];
 
 export const brandItems: SidebarItem[] = [

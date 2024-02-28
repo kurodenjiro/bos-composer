@@ -25,8 +25,33 @@ import {
 import NotificationsCard from './notification-card';
 import { Icon } from '@iconify/react';
 import { AcmeIcon } from './social-icons';
+import { useAuthStore } from '@/stores/auth';
+import React,{useEffect} from 'react';
 
 export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
+  const accountId = useAuthStore((store) => store.accountId);
+  const requestSignInWithWallet = useAuthStore((store) => store.requestSignInWithWallet);
+  const vmNear = useAuthStore((store) => store.vmNear);
+  useEffect(() => {
+    if (vmNear?.selector) {
+      vmNear.selector
+        .then((selector: any) => {
+          const walletSelectorState = selector.store.getState();
+
+          if (walletSelectorState.selectedWalletId === 'my-near-wallet') {
+            return selector.wallet('my-near-wallet');
+          }
+        })
+        .then((MyNearWallet: any) => {
+          if (MyNearWallet) {
+            MyNearWallet.signIn({
+              contractId: vmNear.config.contractName,
+            });
+          }
+        });
+    }
+  }, [vmNear]);
+
   return (
     <NavbarBase
       classNames={{
@@ -138,7 +163,7 @@ export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
                 </Badge>
               </button>
             </DropdownTrigger>
-            <DropdownMenu aria-label="Profile Actions" variant="flat">
+            {accountId?<button onClick={requestSignInWithWallet}>Log In</button>:<DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">johndoe@example.com</p>
@@ -154,7 +179,7 @@ export const Navbar = ({ onToggle }: { onToggle?: () => void }) => {
               <DropdownItem key="logout" color="danger">
                 Log Out
               </DropdownItem>
-            </DropdownMenu>
+            </DropdownMenu>}
           </Dropdown>
         </NavbarItem>
       </NavbarContent>
